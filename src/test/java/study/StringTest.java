@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class StringTest {
     @Test
@@ -45,6 +46,25 @@ public class StringTest {
         assertThat(result).isEqualTo("1,2");
     }
 
+    @Test
+    public void getCharacter() {
+        //given
+        String testCase = "abc";
+        //when
+        char result = testCase.charAt(1);
+        //then
+        assertThat(result).isEqualTo('b');
+    }
 
+    @Test
+    public void canNotGetCharacter() {
+        //given
+        String testCase = "abc";
+        //when, then
+        assertThatThrownBy(()-> testCase.charAt(testCase.length()))
+                .isInstanceOf(StringIndexOutOfBoundsException.class)
+                .hasMessageContaining("String index out of range")
+                .hasMessageContaining(String.valueOf(testCase.length()));
+    }
 
 }
